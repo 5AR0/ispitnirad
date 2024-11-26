@@ -1,0 +1,29 @@
+<div class="container">
+    <h2 class="text-center mt-4">
+      Vase Rezervacije
+    </h2>
+    <hr>
+    <table class="table mb-4 table-hover table-borderer text-center">
+      <thead class="thead-dark">
+      <tr>
+        <th>Film</th>
+        <th>Vreme Projekcije</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of korpa">
+          <td>
+            {{item.film.naziv}}
+          </td>
+          <td>
+            {{item.projekcija}}
+          </td>  
+          <td>
+            {{item.status}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>

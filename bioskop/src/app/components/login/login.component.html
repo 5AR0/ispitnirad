@@ -1,0 +1,28 @@
+<div class="container mt-5 d-flex flex-column mb-5 pr-5 pl-5 w-50">  
+    <div class="container mt-5 text-center">
+     Prijava
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> 
+        <div class="form-group">
+             <label for="email" class="form-label">Email</label>
+             <input type="email" class="form-control" formControlName="email" id="email" placeholder="Unesite Vas Email"/> 
+             <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)">
+                <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['required']">Email je obavezno polje</small>
+                <small class="text-danger" *ngIf="loginForm.get('email')?.errors?.['email']">Nevalidan email format</small>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <label for="lozinka" class="form-label">Lozinka</label>
+            <input type="password" class="form-control" formControlName="lozinka" id="lozinka" placeholder="Unesite Vasu Lozinku"/> 
+            <div *ngIf="loginForm.get('lozinka')?.invalid && (loginForm.get('lozinka')?.touched || loginForm.get('lozinka')?.dirty)">
+                <small class="text-danger" *ngIf="loginForm.get('lozinka')?.errors?.['required']">Lozinka je obavezno polje</small>
+                <small class="text-danger" *ngIf="loginForm.get('lozinka')?.errors?.['minlength']">Lozinka mora imati najmanje 3 karaktera</small>
+            </div>
+       </div>
+       <div class="container text-center mt-3">
+           <button class="btn btn-primary btn-sm w-25" type="submit" [disabled]="loginForm.invalid">
+            Prijavi se
+           </button>
+       </div>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+<div class="home-container">
+
+    <div class="search-bar">
+        <form>
+          <div class="search-row">
+            <mat-form-field>
+              <input matInput [(ngModel)]="kriterijumi.naziv" name="naziv" placeholder="Naziv filma">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [(ngModel)]="kriterijumi.opis" name="opis" placeholder="Opis filma">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [(ngModel)]="kriterijumi.zanr" name="zanr" placeholder="Zanr filma">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput  type ="number" min="10" [(ngModel)]="kriterijumi.trajanje" name="trajanje" placeholder="Trajanje filma">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [(ngModel)]="kriterijumi.reziser" name="reziser" placeholder="Reziser filma">
+            </mat-form-field>
+           
+          </div>
+          <div class="search-row">
+          
+            
+            <mat-form-field>
+              <input matInput [(ngModel)]="kriterijumi.glumci" name="glumci" placeholder="Glumci filma">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="kriterijumi.datumIzlaska" name ="datumIzlaska" placeholder="Datum Izlaska">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field> 
+              <mat-date-range-input [rangePicker]="picker1">
+                <input matStartDate placeholder="Pocetak" [(ngModel)]="kriterijumi.datumiVremeProjekcije.start" name="start">
+                <input matEndDate placeholder="Kraj Projekcije" [(ngModel)]="kriterijumi.datumiVremeProjekcije.end" name="end">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker1></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="number" min="1" [(ngModel)]="kriterijumi.cena" name="cena" placeholder="Cena filma">
+              </mat-form-field>
+              <mat-form-field>
+              <input matInput type="number" min="1" max="5" [(ngModel)]="kriterijumi.ocena" name="ocena" placeholder="Ocena filma">
+              </mat-form-field> 
+          </div>
+          
+          <button mat-raised-button color="primary" (click)="pretragaFilmova()">
+            Pretrazi
+          </button>
+        </form>
+      
+    </div>
+    <div class="filmovi-list"> 
+        <mat-card *ngFor="let film of filmovi" class="film-card">
+            <img mat-card-image [src]="'assets/images/'+film.slika" alt="slika nije dostupna"/>
+            <mat-card-header>
+              <mat-card-title>{{ film.naziv }}</mat-card-title>
+              <mat-card-subtitle>{{ film.zanr }} | {{ film.trajanje }} min</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ film.opis }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" class="w-100" (click)="filmDetalji(film.id)">Detalji</button>
+            </mat-card-actions>
+      </mat-card> 
+    </div>   
+</div>

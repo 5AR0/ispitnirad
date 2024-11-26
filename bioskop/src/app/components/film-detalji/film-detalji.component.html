@@ -1,0 +1,97 @@
+<div class="container mt-5 d-flex flex-column mb-5">
+  <div class="row">
+    <div class="col-md-4">
+        <img [src]="'assets/images/'+film.slika" alt="slika nije dostupna" style="height: 600px; width: 380px;"/>
+        <button class="btn btn-primary w-100 mt-5 " (click)="rezervisi(film.id)">
+            Rezervisi
+        </button>
+    </div>
+    <div class="col-md-6 text-center">
+       <h1>
+        {{film.naziv}}
+       </h1>
+       <hr>
+       <h3>
+        Zanr: {{film.zanr}}
+       </h3>
+       <h3>
+        Trajanje: {{film.trajanje}} min
+       </h3>
+       <h3>
+        Reziser: {{film.reziser}}
+       </h3>
+       <h3>
+        Glumci: {{film.glumci}}
+       </h3>
+       <h3 class="text-danger">
+        Cena: {{film.cena}}
+       </h3> 
+       <h3>
+        Datum Izlaska: {{film.datumIzlaska | date:'longDate'}} 
+       </h3>  
+       <hr>
+       <p>Opis: {{film.opis}}</p> 
+       <hr>
+       <h3>
+        Projekcije: 
+       </h3>   
+       <ul style="list-style-type: none; padding-left: 0;">
+        <li *ngFor="let projekcija of film.projekcije">
+             <p>
+                {{formatDate(projekcija)}}
+             </p>
+        </li>
+       </ul>
+       <hr>
+       <h3>
+        Recenzije: 
+       </h3>
+       <ul style="list-style-type: none; padding-left: 0;">
+        <li *ngFor="let recenzija of film.recenzije">
+             <p>
+                Komentar: {{recenzija.komentar}} 
+             </p>
+             <p>
+                Ocena: {{recenzija.ocena}}
+             </p>
+             <p>
+                Korisnik: {{recenzija.korisnik}}
+             </p>
+             <hr>
+             
+        </li>
+       </ul>
+    </div>
+  </div>
+
+
+<div class="modal fade" style="margin: 160px;" [class.show]="showDialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" [ngClass]="{'d-block': showDialog}">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Rezervacija za film: {{film.naziv}}</h5>
+         <button type="button" class="btn-close" (click)="closeDialog()" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+       <form style="margin-left: 115px;" [formGroup]="rezervacijaForm">
+         <mat-form-field>
+            <mat-label for="projekcija">Vreme Projekcije</mat-label>
+            <mat-select formControlName="projekcija" name="projekcija" id="projekcija">
+               <mat-option value="" disabled>Izaberi Projekciju</mat-option>
+               <mat-option *ngFor="let projekcija of film.projekcije" [value]="projekcija">
+                  {{formatDate(projekcija)}}
+               </mat-option>
+            </mat-select>
+         </mat-form-field>
+         
+       </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary ms-auto" (click)="closeDialog()">Odustani</button>
+         <button type="button" class="btn btn-primary" [disabled]="rezervacijaForm.invalid" (click)="createRezervacija()">Rezervisi</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div *ngIf="showDialog" class="modal-backdrop fade show"></div>
+</div>
